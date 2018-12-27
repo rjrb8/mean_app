@@ -1,0 +1,62 @@
+<app-principal></app-principal>
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #usuarioForms="ngForm" (ngSubmit)="addUsuario(usuarioForms)">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="ServiciosService.selectedUsuarios._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu nombre" name="name" #name="ngModel" [(ngModel)]="ServiciosService.selectedUsuarios.name"> 
+              </div>
+              <div class="input-field col s12"> 
+                <input type="text" placeholder="Ingresa tu usuario" name="usuario" #usuario="ngModel" [(ngModel)]="ServiciosService.selectedUsuarios.usuario">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu contraseña" name="contrasena" #contraseña="ngModel" [(ngModel)]="ServiciosService.selectedUsuarios.contrasena">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu correo" name="correo" #correos="ngModel" [(ngModel)]="ServiciosService.selectedUsuarios.correo">
+              </div>
+              <div class="card-action">
+                <div class="imput-field col s12">
+                  <button class="btn">Guardar</button>
+                  <button class="btn right"  (click)="resetForm(usuarioForms)">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form>  
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table>
+        <thead>
+          <th>Nombre</th>
+          <th>Usuario</th>
+          <th>Contraseña</th>
+          <th>Correo</th>
+          <th>Operaciones</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Usuarios of ServiciosService.usuarios1">
+            <td>{{ Usuarios.name  }}</td>
+            <td>{{ Usuarios.usuario  }}</td>
+            <td>{{ Usuarios.contrasena  }}</td>
+            <td>{{ Usuarios.correo  }}</td>
+            <td>
+              <a (click)="editUsuario(Usuarios)">
+                <i class="material-icons">edit</i> 
+              </a>
+              <a (click)="eliminarUsuario(Usuarios._id)">
+                  <i class="material-icons">delete</i> 
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

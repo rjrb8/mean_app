@@ -1,0 +1,91 @@
+<app-principal></app-principal>
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form #empleadoForms="ngForm" (ngSubmit)="addEmpleado(empleadoForms)">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="DatosService.selectedEmployee._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu nombre" name="name" #name="ngModel" [(ngModel)]="DatosService.selectedEmployee.name"> 
+              </div>
+              <div class="input-field col s12"> 
+                <input type="text" placeholder="Ingresa tu position" name="position" #position="ngModel" [(ngModel)]="DatosService.selectedEmployee.position">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu oficina" name="office" #office="ngModel" [(ngModel)]="DatosService.selectedEmployee.office">
+              </div>
+              <div class="input-field col s12">
+                <input type="text" placeholder="Ingresa tu salario" name="salary" #salary="ngModel" [(ngModel)]="DatosService.selectedEmployee.salary">
+              </div>
+              <div class="input-field col s12">
+                <select name="departamento" #departamento="ngModel" [(ngModel)]="DatosService.selectedEmployee" (change)="selectOption($event.target.value)">
+                  <option *ngFor="let opt of departamentos" [value]="opt.id">{{ opt.nombre_dep }}</option>
+                </select>
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12">
+                  <button class="btn">Guardar</button>
+                  <button class="btn right"  (click)="resetForm(empleadoForms)">Limpiar</button>
+                </div>
+              </div>
+            </div>
+          </form> 
+
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table>
+        <thead>
+          <th>Nombre</th>
+          <th>Posicion</th>
+          <th>oficina</th>
+          <th>Operaciones</th>
+          <th>Modal</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Persona of DatosService.employees1">
+            <td>{{ Persona.name  }}</td>
+            <td>{{ Persona.position  }}</td>
+            <td>{{ Persona.office  }}</td>
+            <td>
+              <a (click)="editEmpleado(Persona)">
+                <i class="material-icons">edit</i> 
+              </a>
+              <a (click)="eliminarEmpleado(Persona._id)">
+                  <i class="material-icons">delete</i> 
+              </a>
+              <!--<a  [id]="Persona._id" (click)="enviarModal(Persona._id, Persona.name)">
+                <i class="material-icons">build</i> 
+              </a>-->
+              <a [id]="Persona._id" (click)="enviarModal(Persona._id, Persona.name)" class="btn modal-trigger">Modal</a>
+               <!-- Modal -->
+  <div class="modal" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input class="" id ="" [value]="id"/>
+            <input class="" id ="" [value]="nombre">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" click="cerrarModal();" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
